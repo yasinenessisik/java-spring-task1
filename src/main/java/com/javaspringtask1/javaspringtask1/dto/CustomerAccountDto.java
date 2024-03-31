@@ -3,7 +3,7 @@ package com.javaspringtask1.javaspringtask1.dto;
 import com.javaspringtask1.javaspringtask1.model.Transaction;
 
 import java.math.BigDecimal;
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Set;
 
 public class CustomerAccountDto {
@@ -11,7 +11,7 @@ public class CustomerAccountDto {
 
     private BigDecimal balance;
 
-    private LocalDate creationDate;
+    private LocalDateTime creationDate;
 
     private Set<Transaction> transactions;
 }

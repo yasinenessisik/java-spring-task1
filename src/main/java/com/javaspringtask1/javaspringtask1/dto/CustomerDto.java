@@ -17,4 +17,6 @@ public class CustomerDto {
     private String name;
     private String surname;
 
+    private Set<CustomerAccountDto> accounts;
+
 }
