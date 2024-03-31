@@ -17,9 +17,21 @@ public class Transaction {
 
     private LocalDateTime transactionTime;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
+    
     private Account account;
 
     @Enumerated(value = EnumType.STRING)
     private TransactionStat transactionStat;
+
+    public Transaction(BigDecimal amount, Account account) {
+        this.transactionTime = LocalDateTime.now();
+        this.transactionStat = TransactionStat.INITIAL;
+        this.amount = amount;
+        this.account = account;
+    }
+
+    public Transaction() {
+
+    }
 }

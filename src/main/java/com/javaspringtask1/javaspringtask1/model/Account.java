@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import org.hibernate.annotations.GenericGenerator;
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Set;
 
 @Entity
@@ -16,7 +17,7 @@ public class Account {
 
     private BigDecimal balance;
 
-    private LocalDate creationDate;
+    private LocalDateTime creationDate;
 
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "customer_id", nullable = false)
@@ -24,6 +25,16 @@ public class Account {
 
     @OneToMany(mappedBy = "account", fetch = FetchType.LAZY)
     private Set<Transaction> transactions;
+
+    public Account(BigDecimal balance, LocalDateTime creationDate, Customer customer) {
+        this.balance = balance;
+        this.creationDate = creationDate;
+        this.customer = customer;
+    }
+
+    public Account() {
+
+    }
 
     // Getter and setter methods
     public String getId() {
@@ -42,11 +53,12 @@ public class Account {
         this.balance = balance;
     }
 
-    public LocalDate getCreationDate() {
+
+    public LocalDateTime getCreationDate() {
         return creationDate;
     }
 
-    public void setCreationDate(LocalDate creationDate) {
+    public void setCreationDate(LocalDateTime creationDate) {
         this.creationDate = creationDate;
     }
 
