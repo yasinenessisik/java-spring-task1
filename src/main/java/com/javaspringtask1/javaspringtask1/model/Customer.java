@@ -19,7 +19,7 @@ public class Customer {
 
     private String surname;
 
-    @OneToMany(mappedBy = "customer",fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "customer",fetch = FetchType.LAZY,cascade = CascadeType.ALL)
     private Set<Account> accounts;
 
     public Customer(String id, String name, String surname, Set<Account> accounts) {

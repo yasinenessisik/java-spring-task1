@@ -17,8 +17,8 @@ public class Transaction {
 
     private LocalDateTime transactionTime;
 
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
-    
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinColumn(name = "account_id")
     private Account account;
 
     @Enumerated(value = EnumType.STRING)
@@ -33,5 +33,45 @@ public class Transaction {
 
     public Transaction() {
 
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public BigDecimal getAmount() {
+        return amount;
+    }
+
+    public void setAmount(BigDecimal amount) {
+        this.amount = amount;
+    }
+
+    public LocalDateTime getTransactionTime() {
+        return transactionTime;
+    }
+
+    public void setTransactionTime(LocalDateTime transactionTime) {
+        this.transactionTime = transactionTime;
+    }
+
+    public Account getAccount() {
+        return account;
+    }
+
+    public void setAccount(Account account) {
+        this.account = account;
+    }
+
+    public TransactionStat getTransactionStat() {
+        return transactionStat;
+    }
+
+    public void setTransactionStat(TransactionStat transactionStat) {
+        this.transactionStat = transactionStat;
     }
 }

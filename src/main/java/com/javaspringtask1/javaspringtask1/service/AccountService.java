@@ -3,6 +3,9 @@ package com.javaspringtask1.javaspringtask1.service;
 import com.javaspringtask1.javaspringtask1.dto.AccountCustomerDto;
 import com.javaspringtask1.javaspringtask1.dto.AccountDto;
 import com.javaspringtask1.javaspringtask1.dto.CreateAccountRequest;
+import com.javaspringtask1.javaspringtask1.dto.TransactionDto;
+import com.javaspringtask1.javaspringtask1.dto.converter.AccountDtoConverter;
+import com.javaspringtask1.javaspringtask1.dto.converter.TransactionDtoConverter;
 import com.javaspringtask1.javaspringtask1.model.Account;
 import com.javaspringtask1.javaspringtask1.model.Customer;
 import com.javaspringtask1.javaspringtask1.model.Transaction;
@@ -18,14 +21,17 @@ public class AccountService {
     private final AccountRepository accountRepository;
     private final CustomerService customerService;
     private final TransactionService transactionService;
+    private final AccountDtoConverter accountDtoConverter;
 
 
     public AccountService(AccountRepository accountRepository,
                           CustomerService customerService,
-                          TransactionService transactionService) {
+                          TransactionService transactionService, AccountDtoConverter accountDtoConverter) {
         this.accountRepository = accountRepository;
         this.customerService = customerService;
         this.transactionService = transactionService;
+
+        this.accountDtoConverter = accountDtoConverter;
     }
 
     public AccountDto createAccount(CreateAccountRequest createAccountRequest){
@@ -40,16 +46,6 @@ public class AccountService {
             account.getTransactions().add(transaction);
         }
         Account newAccount = accountRepository.save(account);
-        return AccountDto.builder()
-                .id(newAccount.getId())
-                .balance(newAccount.getBalance())
-                .creationDate(newAccount.getCreationDate())
-                .customer(AccountCustomerDto.builder()
-                        .id(customer.getId())
-                        .name(customer.getName())
-                        .surname(customer.getSurname())
-                        .build())
-                .transactions(account.getTransactions())
-                .build();
+        return accountDtoConverter.convert(newAccount);
     }
 }

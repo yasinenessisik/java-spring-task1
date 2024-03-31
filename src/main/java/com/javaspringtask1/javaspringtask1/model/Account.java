@@ -1,10 +1,11 @@
 package com.javaspringtask1.javaspringtask1.model;
 
+import com.javaspringtask1.javaspringtask1.dto.TransactionDto;
 import jakarta.persistence.*;
 import org.hibernate.annotations.GenericGenerator;
 import java.math.BigDecimal;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.HashSet;
 import java.util.Set;
 
 @Entity
@@ -30,13 +31,13 @@ public class Account {
         this.balance = balance;
         this.creationDate = creationDate;
         this.customer = customer;
+        this.transactions = new HashSet<>();
     }
 
     public Account() {
 
     }
 
-    // Getter and setter methods
     public String getId() {
         return id;
     }
@@ -52,7 +53,6 @@ public class Account {
     public void setBalance(BigDecimal balance) {
         this.balance = balance;
     }
-
 
     public LocalDateTime getCreationDate() {
         return creationDate;
