@@ -8,7 +8,6 @@ import com.javaspringtask1.javaspringtask1.repository.CustomerRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -21,9 +20,9 @@ public class CustomerService {
         this.converter = converter;
     }
 
-    protected Customer findCustomerById(String id){
+    protected Customer findCustomerById(String id) {
         return customerRepository.findById(id)
-                .orElseThrow(() -> new CustomerNotFoundException("Customer Not Found by Id "+ id));
+                .orElseThrow(() -> new CustomerNotFoundException("Customer Not Found by Id " + id));
     }
 
     public CustomerDto getCustomerById(String customerId) {
@@ -33,7 +32,7 @@ public class CustomerService {
 
     public List<CustomerDto> getAllCustomer() {
         return customerRepository.findAll().stream()
-                .map(t-> converter.convertToCustomerDto(t)).collect(Collectors.toList());
+                .map(t -> converter.convertToCustomerDto(t)).collect(Collectors.toList());
     }
 
 }
