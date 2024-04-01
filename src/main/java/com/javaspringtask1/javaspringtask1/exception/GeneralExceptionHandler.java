@@ -3,6 +3,7 @@ package com.javaspringtask1.javaspringtask1.exception;
 import jakarta.validation.constraints.NotNull;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -17,12 +18,9 @@ import java.util.Map;
 @RestControllerAdvice
 public class GeneralExceptionHandler extends ResponseEntityExceptionHandler {
 
-    @NotNull
     @Override
-    protected ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException ex,
-                                                                  @NotNull HttpHeaders headers,
-                                                                  @NotNull HttpStatus status,
-                                                                  @NotNull WebRequest request) {
+    @NotNull
+    protected ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException ex, HttpHeaders headers, HttpStatusCode status, WebRequest request) {
         Map<String, String> errors = new HashMap<>();
         ex.getBindingResult().getAllErrors().forEach(error ->{
             String fieldName = ((FieldError) error).getField();
@@ -33,11 +31,8 @@ public class GeneralExceptionHandler extends ResponseEntityExceptionHandler {
         return new ResponseEntity<>(errors, HttpStatus.BAD_REQUEST);
     }
 
-
     @ExceptionHandler(CustomerNotFoundException.class)
-    public ResponseEntity<?> customerNotFoundExceptionHandler(CustomerNotFoundException exception)  {
+    public ResponseEntity<?> customerNotFoundExceptionHandler(CustomerNotFoundException exception) {
         return new ResponseEntity<>(exception.getMessage(), HttpStatus.BAD_REQUEST);
     }
-
-
 }
