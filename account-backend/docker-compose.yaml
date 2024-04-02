@@ -1,0 +1,10 @@
+version: '3.0'
+
+services:
+  app:
+    image: 'account-api:1.0'
+    container_name: account-api
+    build:
+      context: .
+    ports:
+      - 9090:8080
